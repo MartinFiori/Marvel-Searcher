@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import "./App.css";
+import AppRouter from "./Components/AppRouter";
 
 function App() {
 	const API_URL =
@@ -22,12 +23,8 @@ function App() {
 		apiCall();
 	}, []);
 	return (
-		<div className="App">
-			{arr.map((el, i) => (
-				<div key={i}>
-					<h1>{el.name}</h1>
-				</div>
-			))}
+		<div>
+			<AppRouter />
 		</div>
 	);
 }
