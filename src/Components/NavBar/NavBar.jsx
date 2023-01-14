@@ -1,4 +1,5 @@
 import React from "react";
+import StarSVG from "../../SVG/StarSVG";
 import { StyledLogo, StyledNavbarContainer } from "./NavBar.styles";
 /*
  #c292de
@@ -11,6 +12,7 @@ export default function NavBar() {
 	return (
 		<StyledNavbarContainer>
 			<StyledLogo />
+			<StarSVG />
 		</StyledNavbarContainer>
 	);
 }
