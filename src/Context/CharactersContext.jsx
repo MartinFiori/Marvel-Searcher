@@ -14,12 +14,13 @@ const CharactersProvider = ({ children }) => {
 	const [characters, setCharacters] = useState([]);
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [userSearch, setUserSearch] = useState("");
 
 	useEffect(() => {
 		localStorage.setItem("favorites", JSON.stringify(favorites));
 	}, [favorites]);
 
-	async function randomNumber() {
+	async function handleRandomNumber() {
 		try {
 			setLoading(true);
 			const req = await axios(
@@ -34,8 +35,8 @@ const CharactersProvider = ({ children }) => {
 		}
 	}
 
-	async function FetchRandomCharacter() {
-		const randomNum = await randomNumber();
+	async function handleFetchRandomCharacter() {
+		const randomNum = await handleRandomNumber();
 		axios(
 			`https://gateway.marvel.com/v1/public/characters?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`,
 			{
@@ -52,17 +53,19 @@ const CharactersProvider = ({ children }) => {
 			.finally(() => setLoading(false));
 	}
 
-	function filterCharacters(character_name) {
+	function handleFilterCharacters() {
 		setLoading(true);
-		axios(
-			`https://gateway.marvel.com/v1/public/characters?q=${character_name}&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
-		)
-			.then(data => setCharacters(data.data.data.results))
-			.catch(err => console.error(err.message))
-			.finally(() => setLoading(false));
+		if (userSearch) {
+			axios(
+				`https://gateway.marvel.com/v1/public/characters?q=${userSearch}&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+			)
+				.then(data => setCharacters(data.data.data.results))
+				.catch(err => console.error(err.message))
+				.finally(() => setLoading(false));
+		}
 	}
 
-	function toggleFavorite(character) {
+	function handleToggleFavorite(character) {
 		setFavorites(favs =>
 			favs.some(el => el.id === character.id)
 				? favs.filter(el => el.id !== character.id)
@@ -70,13 +73,19 @@ const CharactersProvider = ({ children }) => {
 		);
 	}
 
+	function handleSetUserSearch(search) {
+		setUserSearch(search);
+	}
+
 	const state = {
 		characters,
 		favorites,
 		loading,
-		FetchRandomCharacter,
-		toggleFavorite,
-		filterCharacters,
+		userSearch,
+		handleFetchRandomCharacter,
+		handleToggleFavorite,
+		handleFilterCharacters,
+		handleSetUserSearch,
 	};
 
 	return (
