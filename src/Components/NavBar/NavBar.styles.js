@@ -17,4 +17,32 @@ export const StyledNavbarContainer = styled.div`
 	flex-direction: row;
 	background: #fff;
 	padding: 10px;
+	gap: 15px;
+`;
+
+export const StyledInput = styled.input`
+	outline: none;
+	border: none;
+	font-size: 22px;
+	letter-spacing: 2px;
+	width: 80%;
+	height: 100%;
+	padding: 1rem;
+	margin-right: auto;
+	/* color: var(--light-grey); */
+`;
+
+StyledInput.defaultProps = {
+	placeholder: "...",
+};
+
+export const StyledResponsiveContainer = styled.div`
+	height: 85%;
+	padding-inline: 10px;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	align-items: center;
+	border-right: 1px solid var(--light-grey);
+	border-left: 1px solid var(--light-grey);
 `;

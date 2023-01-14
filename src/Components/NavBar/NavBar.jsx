@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import StarSVG from "../../SVG/StarSVG";
-import { StyledLogo, StyledNavbarContainer } from "./NavBar.styles";
-/*
- #c292de
- #67b3e4
- #96a3e0
- #ffffff
-*/
+import SearchSVG from "../../SVG/SearchSVG";
+import {
+	StyledInput,
+	StyledLogo,
+	StyledNavbarContainer,
+	StyledResponsiveContainer,
+} from "./NavBar.styles";
+import { CharactersContext } from "../../Context/CharactersContext";
 
 export default function NavBar() {
+	const { handleSetUserSearch, userSearch } = useContext(CharactersContext);
 	return (
 		<StyledNavbarContainer>
 			<StyledLogo />
-			<StarSVG />
+			<StyledResponsiveContainer>
+				<SearchSVG />
+				<StyledInput
+					value={userSearch}
+					onChange={e => handleSetUserSearch(e.target.value)}
+				/>
+				<StarSVG />
+			</StyledResponsiveContainer>
 		</StyledNavbarContainer>
 	);
 }

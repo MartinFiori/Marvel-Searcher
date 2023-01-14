@@ -53,16 +53,17 @@ const CharactersProvider = ({ children }) => {
 			.finally(() => setLoading(false));
 	}
 
-	function handleFilterCharacters() {
-		setLoading(true);
-		if (userSearch) {
+	function handleFilterCharacters(value) {
+		if (value) {
+			setLoading(true);
 			axios(
-				`https://gateway.marvel.com/v1/public/characters?q=${userSearch}&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+				`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${value}&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
 			)
 				.then(data => setCharacters(data.data.data.results))
-				.catch(err => console.error(err.message))
+				.catch(err => console.error(err))
 				.finally(() => setLoading(false));
 		}
+		setLoading(false);
 	}
 
 	function handleToggleFavorite(character) {
@@ -74,7 +75,9 @@ const CharactersProvider = ({ children }) => {
 	}
 
 	function handleSetUserSearch(search) {
+		search = search.toLowerCase();
 		setUserSearch(search);
+		handleFilterCharacters(search);
 	}
 
 	const state = {
