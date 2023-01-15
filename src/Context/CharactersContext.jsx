@@ -11,9 +11,10 @@ https://gateway.marvel.com/v1/public/characters?apikey=ed5aa221d74a4d0812e9637da
 // );
 
 const CharactersProvider = ({ children }) => {
-	const [characters, setCharacters] = useState([]);
+	const [characters, setCharacters] = useState({});
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [favorites, setFavorites] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const [isSearching, setIsSearching] = useState(false);
 	const [userSearch, setUserSearch] = useState("");
 
 	useEffect(() => {
@@ -22,7 +23,6 @@ const CharactersProvider = ({ children }) => {
 
 	async function handleRandomNumber() {
 		try {
-			setLoading(true);
 			const req = await axios(
 				`https://gateway.marvel.com/v1/public/characters?apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
 			);
@@ -30,12 +30,11 @@ const CharactersProvider = ({ children }) => {
 			return Math.floor(Math.random() * (totalCharacters - 0 + 1)) + 0;
 		} catch (err) {
 			console.error(err.message);
-		} finally {
-			setLoading(false);
 		}
 	}
 
 	async function handleFetchRandomCharacter() {
+		setIsSearching(prev => !prev);
 		const randomNum = await handleRandomNumber();
 		axios(
 			`https://gateway.marvel.com/v1/public/characters?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`,
@@ -50,20 +49,22 @@ const CharactersProvider = ({ children }) => {
 				return data.data.data.results[0];
 			})
 			.catch(err => console.error(err.message))
-			.finally(() => setLoading(false));
+			.finally(() => setIsSearching(prev => !prev));
 	}
 
 	function handleFilterCharacters(value) {
 		if (value) {
-			setLoading(true);
+			setIsSearching(prev => !prev);
 			axios(
-				`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${value}&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+				`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${value}&limit=100&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
 			)
-				.then(data => setCharacters(data.data.data.results))
+				.then(data => {
+					setCharacters(data.data.data);
+					console.log(data.data.data);
+				})
 				.catch(err => console.error(err))
-				.finally(() => setLoading(false));
+				.finally(() => setIsSearching(prev => !prev));
 		}
-		setLoading(false);
 	}
 
 	function handleToggleFavorite(character) {
@@ -71,6 +72,11 @@ const CharactersProvider = ({ children }) => {
 			favs.some(el => el.id === character.id)
 				? favs.filter(el => el.id !== character.id)
 				: [...favs, character]
+		);
+		console.log(
+			favorites.some(el => el.id === character.id)
+				? favorites.filter(el => el.id !== character.id)
+				: [...favorites, character]
 		);
 	}
 
@@ -80,15 +86,34 @@ const CharactersProvider = ({ children }) => {
 		handleFilterCharacters(search);
 	}
 
+	async function handleSearchSeries(character) {
+		setIsModalOpen(true);
+		let arr = [];
+		if (character) {
+			try {
+				const req = await axios(
+					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/series?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+				);
+				arr = req.data.data.results;
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		return arr;
+	}
+
 	const state = {
 		characters,
 		favorites,
-		loading,
+		isSearching,
 		userSearch,
 		handleFetchRandomCharacter,
 		handleToggleFavorite,
 		handleFilterCharacters,
 		handleSetUserSearch,
+		handleSearchSeries,
+		setIsModalOpen,
+		isModalOpen,
 	};
 
 	return (

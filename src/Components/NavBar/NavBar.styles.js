@@ -33,7 +33,7 @@ export const StyledInput = styled.input`
 `;
 
 StyledInput.defaultProps = {
-	placeholder: "...",
+	placeholder: "Buscar",
 };
 
 export const StyledResponsiveContainer = styled.div`
