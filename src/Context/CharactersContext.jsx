@@ -107,13 +107,13 @@ const CharactersProvider = ({ children }) => {
 		favorites,
 		isSearching,
 		userSearch,
+		isModalOpen,
 		handleFetchRandomCharacter,
 		handleToggleFavorite,
 		handleFilterCharacters,
 		handleSetUserSearch,
 		handleSearchSeries,
 		setIsModalOpen,
-		isModalOpen,
 	};
 
 	return (

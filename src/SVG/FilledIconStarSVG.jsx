@@ -6,7 +6,7 @@ const SvgComponent = props => (
 		width={35}
 		height={35}
 		{...props}
-		style={{ transform: "scale(0.9)" }}
+		style={{ transform: "scale(0.9)", cursor: "pointer" }}
 	>
 		<path
 			style={{

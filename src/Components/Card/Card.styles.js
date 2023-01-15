@@ -40,7 +40,6 @@ export const StyledItem = styled.div`
 	align-items: center;
 	height: ${props => props.height};
 	padding: 20px;
-	background: ${props => props.bg && "rgb(106, 44, 112)"};
 	justify-content: ${props =>
 		props.justify === "start" ? "flex-start" : "flex-end"};
 `;

@@ -1,14 +1,9 @@
 import React, { useContext } from "react";
 import { CharactersContext } from "../../Context/CharactersContext";
 import Card from "../Card/Card";
+import PopUp from "../PopUp/PopUp";
 import Spinner from "../Spinner/Spinner";
-import {
-	StyledCardContainer,
-	StyledNotFound,
-	StyledOverlay,
-	StyledContent,
-	StyledPopUp,
-} from "./CardsContainer.styles";
+import { StyledCardContainer, StyledNotFound } from "./CardsContainer.styles";
 
 const CardsContainer = () => {
 	const { characters, isSearching, userSearch, isModalOpen } =
@@ -36,12 +31,7 @@ const CardsContainer = () => {
 					: null}
 			</StyledCardContainer>
 
-			{isModalOpen && (
-				<StyledPopUp>
-					<StyledOverlay />
-					<StyledContent></StyledContent>
-				</StyledPopUp>
-			)}
+			{isModalOpen && <PopUp />}
 		</div>
 	);
 };

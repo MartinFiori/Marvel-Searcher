@@ -26,15 +26,3 @@ export const StyledNotFound = styled.img`
 StyledNotFound.defaultProps = {
 	src: "https://res.cloudinary.com/dax0wf30d/image/upload/v1673729915/shit/character_not_found_gbhqkj.png",
 };
-
-export const StyledPopUp = styled.section``;
-
-export const StyledOverlay = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-`;
-
-export const StyledContent = styled.section``;
