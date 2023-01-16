@@ -18,7 +18,7 @@ export default function Card(props) {
 	};
 	return (
 		<StyledCard
-			onClick={e => {
+			onClick={() => {
 				handleSearchSeries(props);
 			}}
 		>

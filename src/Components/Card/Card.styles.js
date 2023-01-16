@@ -12,11 +12,13 @@ const appear = keyframes`
 `;
 
 export const StyledCard = styled.section`
+	margin-inline: auto;
 	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 300px;
+	height: 360px;
 	border-radius: 5px;
 	overflow: hidden;
 	animation: ${appear} 250ms linear;
@@ -38,10 +40,10 @@ export const StyledBgImg = styled.img`
 export const StyledItem = styled.div`
 	display: flex;
 	align-items: center;
-	height: ${props => props.height};
+	height: ${({ height }) => height};
 	padding: 20px;
-	justify-content: ${props =>
-		props.justify === "start" ? "flex-start" : "flex-end"};
+	justify-content: ${({ justify }) =>
+		justify === "start" ? "flex-start" : "flex-end"};
 `;
 
 export const StyledName = styled.h3`

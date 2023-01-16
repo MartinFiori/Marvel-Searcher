@@ -16,6 +16,7 @@ const CharactersProvider = ({ children }) => {
 	const [favorites, setFavorites] = useState([]);
 	const [isSearching, setIsSearching] = useState(false);
 	const [userSearch, setUserSearch] = useState("");
+	const [selected, setSelected] = useState({});
 
 	useEffect(() => {
 		localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -60,7 +61,6 @@ const CharactersProvider = ({ children }) => {
 			)
 				.then(data => {
 					setCharacters(data.data.data);
-					console.log(data.data.data);
 				})
 				.catch(err => console.error(err))
 				.finally(() => setIsSearching(prev => !prev));
@@ -73,11 +73,6 @@ const CharactersProvider = ({ children }) => {
 				? favs.filter(el => el.id !== character.id)
 				: [...favs, character]
 		);
-		console.log(
-			favorites.some(el => el.id === character.id)
-				? favorites.filter(el => el.id !== character.id)
-				: [...favorites, character]
-		);
 	}
 
 	function handleSetUserSearch(search) {
@@ -88,18 +83,19 @@ const CharactersProvider = ({ children }) => {
 
 	async function handleSearchSeries(character) {
 		setIsModalOpen(true);
-		let arr = [];
+		setIsSearching(true);
 		if (character) {
 			try {
 				const req = await axios(
-					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/series?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/series?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77&limit=100`
 				);
-				arr = req.data.data.results;
+				console.log(req.data.data);
+				setSelected(req.data.data);
 			} catch (err) {
 				console.log(err);
 			}
 		}
-		return arr;
+		setIsSearching(prev => !prev);
 	}
 
 	const state = {
@@ -108,12 +104,14 @@ const CharactersProvider = ({ children }) => {
 		isSearching,
 		userSearch,
 		isModalOpen,
+		selected,
 		handleFetchRandomCharacter,
 		handleToggleFavorite,
 		handleFilterCharacters,
 		handleSetUserSearch,
 		handleSearchSeries,
 		setIsModalOpen,
+		setSelected,
 	};
 
 	return (

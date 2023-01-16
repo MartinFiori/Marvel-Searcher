@@ -12,6 +12,7 @@ StyledLogo.defaultProps = {
 
 export const StyledNavbarContainer = styled.div`
 	height: 60px;
+	width: 100vw;
 	display: flex;
 	align-items: center;
 	flex-direction: row;
@@ -29,7 +30,6 @@ export const StyledInput = styled.input`
 	height: 100%;
 	padding: 1rem;
 	margin-right: auto;
-	/* color: var(--light-grey); */
 `;
 
 StyledInput.defaultProps = {

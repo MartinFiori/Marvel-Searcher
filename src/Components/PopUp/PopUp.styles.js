@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 
 const appear = keyframes`
 0%{
-  top: -250%;
+  top: -200%;
 }
 100%{
   top: 50%;
@@ -25,10 +25,10 @@ export const StyledContent = styled.section`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 350px;
+	width: clamp(90vw, 50vw, 600px);
 	height: 500px;
-	background: red;
-	animation: ${appear} 300ms linear;
+	background: #fff;
+	animation: ${appear} 350ms linear;
 	z-index: 200;
 `;
 
@@ -47,3 +47,14 @@ export const StyledBtn = styled.div`
 	font-size: 32px;
 	color: white;
 `;
+
+export const StyledImg = styled.img`
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	outline: 5px solid #f00;
+`;
+
+// StyledImg.defaultProps = {
+// 	src: ({ src }) => src,
+// };
