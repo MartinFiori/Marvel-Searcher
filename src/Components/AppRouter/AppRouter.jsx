@@ -13,7 +13,7 @@ export default function AppRouter() {
 			<Layout>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/character/:id" element={<DetailView />} />
+						<Route path="/details/:id" element={<DetailView />} />
 						<Route path="/favorites" element={<FavoritesView />} />
 						<Route path="/" element={<HomeView />} />
 						<Route path="/*" element={<NotFoundView />} />

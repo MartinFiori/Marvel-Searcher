@@ -66,19 +66,31 @@ export const StyledSeriesContainer = styled.div`
 	height: 70%;
 	width: 90%;
 	overflow-y: auto;
-`;
-
-export const StyledListItem = styled.div`
-	display: flex;
-	width: 100%;
-	height: 100px;
-	gap: 15px;
-	& img {
-		width: 100px;
+	&::-webkit-scrollbar-thumb {
+		background-color: #ff0000;
 		border-radius: 10px;
-		object-fit: cover;
+		border: 3px solid #ffffff;
+	}
+	&::-webkit-scrollbar-track {
+		background: #f0f0f0;
+	}
+	&::-webkit-scrollbar {
+		width: 16px;
+	}
+	a {
+		color: #000;
+		display: flex;
+		width: 100%;
+		height: 100px;
+		gap: 15px;
+		img {
+			width: 100px;
+			border-radius: 10px;
+			object-fit: cover;
+		}
 	}
 `;
+
 export const StyledListItemContent = styled.div`
 	display: flex;
 	flex-direction: column;

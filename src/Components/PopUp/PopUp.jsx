@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { CharactersContext } from "../../Context/CharactersContext";
+import { Link } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 import FilledIconStarSVG from "../../SVG/FilledIconStarSVG";
 import IconStarSVG from "../../SVG/IconStarSVG";
@@ -8,7 +9,6 @@ import {
 	StyledContent,
 	StyledBtn,
 	StyledSeriesContainer,
-	StyledListItem,
 	StyledListItemContent,
 } from "./PopUp.styles";
 
@@ -33,10 +33,9 @@ const PopUp = ({ setIsModalOpen }) => {
 				{selected.count && selected.results.length ? (
 					<StyledSeriesContainer>
 						{selected.results.map(el => {
-							console.log(el);
 							const IMG_URL = `${el.thumbnail.path}.${el.thumbnail.extension}`;
 							return (
-								<StyledListItem key={el.id}>
+								<Link key={el.id} to={`/details/${el.id}`}>
 									<img src={IMG_URL} alt={el.title} />
 									<StyledListItemContent>
 										<h4>
@@ -67,7 +66,7 @@ const PopUp = ({ setIsModalOpen }) => {
 										</h4>
 										<p>{el.description}</p>
 									</StyledListItemContent>
-								</StyledListItem>
+								</Link>
 							);
 						})}
 					</StyledSeriesContainer>
