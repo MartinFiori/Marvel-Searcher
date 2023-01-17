@@ -1,20 +1,28 @@
 import React, { useContext, useEffect } from "react";
 import { CharactersContext } from "../../Context/CharactersContext";
+import Spinner from "../Spinner/Spinner";
+import FilledIconStarSVG from "../../SVG/FilledIconStarSVG";
+import IconStarSVG from "../../SVG/IconStarSVG";
 import {
 	StyledOverlay,
 	StyledContent,
 	StyledBtn,
-	StyledImg,
+	StyledSeriesContainer,
+	StyledListItem,
+	StyledListItemContent,
 } from "./PopUp.styles";
 
-const PopUp = () => {
-	const { setIsModalOpen, selected, setSelected } =
+const PopUp = ({ setIsModalOpen }) => {
+	const { selected, setSelected, favorites, handleToggleFavorite } =
 		useContext(CharactersContext);
+	const isFavorite = serie => {
+		return favorites.find(el => el.id === serie.id);
+	};
 	useEffect(() => {
 		return () => {
 			setSelected([]);
 		};
-	}, []);
+	}, [setSelected]);
 	return (
 		<div>
 			<StyledOverlay />
@@ -23,9 +31,48 @@ const PopUp = () => {
 					&times;
 				</StyledBtn>
 				{selected.count && selected.results.length ? (
-					selected.results.map(el => <h1 key={el.id}>{el.title}</h1>)
+					<StyledSeriesContainer>
+						{selected.results.map(el => {
+							console.log(el);
+							const IMG_URL = `${el.thumbnail.path}.${el.thumbnail.extension}`;
+							return (
+								<StyledListItem key={el.id}>
+									<img src={IMG_URL} alt={el.title} />
+									<StyledListItemContent>
+										<h4>
+											{el.title}{" "}
+											<span>
+												{isFavorite(el) ? (
+													<FilledIconStarSVG
+														color="#d3d3d3"
+														onClick={e => {
+															e.stopPropagation();
+															handleToggleFavorite(
+																el
+															);
+														}}
+													/>
+												) : (
+													<IconStarSVG
+														color="#d3d3d3"
+														onClick={e => {
+															e.stopPropagation();
+															handleToggleFavorite(
+																el
+															);
+														}}
+													/>
+												)}
+											</span>
+										</h4>
+										<p>{el.description}</p>
+									</StyledListItemContent>
+								</StyledListItem>
+							);
+						})}
+					</StyledSeriesContainer>
 				) : (
-					<h1>cargando</h1>
+					<Spinner />
 				)}
 			</StyledContent>
 		</div>

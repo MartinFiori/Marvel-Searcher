@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CharactersContext } from "../../Context/CharactersContext";
 import Card from "../Card/Card";
 import PopUp from "../PopUp/PopUp";
@@ -6,14 +6,9 @@ import Spinner from "../Spinner/Spinner";
 import { StyledCardContainer, StyledNotFound } from "./CardsContainer.styles";
 
 const CardsContainer = () => {
-	const {
-		characters,
-		isSearching,
-		userSearch,
-		isModalOpen,
-		handleSearchSeries,
-		selected,
-	} = useContext(CharactersContext);
+	const { characters, userSearch, handleSearchSeries, selected } =
+		useContext(CharactersContext);
+	const [isModalOpen, setIsModalOpen] = React.useState(false);
 	return (
 		<div
 			style={{
@@ -25,25 +20,22 @@ const CardsContainer = () => {
 				marginTop: "2rem",
 			}}
 		>
-			{isSearching && characters.count && !selected ? <Spinner /> : ""}
-			{!characters.count && userSearch && !isSearching ? (
-				<StyledNotFound />
-			) : (
-				""
-			)}
+			{characters.count && !selected ? <Spinner /> : ""}
+			{!characters.count && userSearch ? <StyledNotFound /> : ""}
 			<StyledCardContainer>
-				{characters.count && userSearch && !isSearching
+				{characters.count && userSearch
 					? characters.results.map(el => (
 							<Card
 								key={el.id}
 								{...el}
+								setIsModalOpen={setIsModalOpen}
 								onClick={() => handleSearchSeries(el)}
 							/>
 					  ))
 					: null}
 			</StyledCardContainer>
 
-			{isModalOpen && <PopUp />}
+			{isModalOpen && <PopUp setIsModalOpen={setIsModalOpen} />}
 		</div>
 	);
 };

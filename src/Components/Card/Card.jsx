@@ -20,6 +20,7 @@ export default function Card(props) {
 		<StyledCard
 			onClick={() => {
 				handleSearchSeries(props);
+				props.setIsModalOpen(true);
 			}}
 		>
 			<StyledBgImg src={IMG_URL} />

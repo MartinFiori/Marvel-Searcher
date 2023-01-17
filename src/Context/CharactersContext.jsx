@@ -14,7 +14,6 @@ const CharactersProvider = ({ children }) => {
 	const [characters, setCharacters] = useState({});
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [favorites, setFavorites] = useState([]);
-	const [isSearching, setIsSearching] = useState(false);
 	const [userSearch, setUserSearch] = useState("");
 	const [selected, setSelected] = useState({});
 
@@ -35,7 +34,6 @@ const CharactersProvider = ({ children }) => {
 	}
 
 	async function handleFetchRandomCharacter() {
-		setIsSearching(prev => !prev);
 		const randomNum = await handleRandomNumber();
 		axios(
 			`https://gateway.marvel.com/v1/public/characters?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`,
@@ -49,25 +47,23 @@ const CharactersProvider = ({ children }) => {
 			.then(data => {
 				return data.data.data.results[0];
 			})
-			.catch(err => console.error(err.message))
-			.finally(() => setIsSearching(prev => !prev));
+			.catch(err => console.error(err.message));
 	}
 
 	function handleFilterCharacters(value) {
 		if (value) {
-			setIsSearching(prev => !prev);
 			axios(
 				`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${value}&limit=100&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
 			)
 				.then(data => {
 					setCharacters(data.data.data);
 				})
-				.catch(err => console.error(err))
-				.finally(() => setIsSearching(prev => !prev));
+				.catch(err => console.error(err));
 		}
 	}
 
 	function handleToggleFavorite(character) {
+		console.log(character);
 		setFavorites(favs =>
 			favs.some(el => el.id === character.id)
 				? favs.filter(el => el.id !== character.id)
@@ -83,7 +79,6 @@ const CharactersProvider = ({ children }) => {
 
 	async function handleSearchSeries(character) {
 		setIsModalOpen(true);
-		setIsSearching(true);
 		if (character) {
 			try {
 				const req = await axios(
@@ -95,13 +90,11 @@ const CharactersProvider = ({ children }) => {
 				console.log(err);
 			}
 		}
-		setIsSearching(prev => !prev);
 	}
 
 	const state = {
 		characters,
 		favorites,
-		isSearching,
 		userSearch,
 		isModalOpen,
 		selected,
