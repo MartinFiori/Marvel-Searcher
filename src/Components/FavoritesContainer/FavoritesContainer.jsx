@@ -6,7 +6,6 @@ import { CharactersContext } from "../../Context/CharactersContext";
 
 const FavoritesContainer = () => {
 	const { favorites } = useContext(CharactersContext);
-	console.log(favorites);
 	return (
 		<StyledFavoritesContainer>
 			<StyledCardContainer>

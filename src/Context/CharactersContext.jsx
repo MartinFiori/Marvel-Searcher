@@ -1,14 +1,10 @@
 import axios from "axios";
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 
 const CharactersContext = createContext();
 /* 
 https://gateway.marvel.com/v1/public/characters?apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77
 */
-
-// const RANDOM_IMG_FROM_LOCALSTORAGE = JSON.parse(
-// 	localStorage.getItem("randomImg")
-// );
 
 const FAVORITES_FROM_LOCALSTORAGE = JSON.parse(
 	localStorage.getItem("favorites") || "[]"
@@ -20,6 +16,7 @@ const CharactersProvider = ({ children }) => {
 	const [favorites, setFavorites] = useState(FAVORITES_FROM_LOCALSTORAGE);
 	const [userSearch, setUserSearch] = useState("");
 	const [selected, setSelected] = useState({});
+	const [randomImg, setRandomImg] = useState("");
 
 	useEffect(() => {
 		localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -37,22 +34,32 @@ const CharactersProvider = ({ children }) => {
 		}
 	}
 
-	async function handleFetchRandomCharacter() {
+	const handleFetchRandomCharacter = useCallback(async () => {
 		const randomNum = await handleRandomNumber();
-		axios(
-			`https://gateway.marvel.com/v1/public/characters?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`,
-			{
-				params: {
-					offset: randomNum,
-					limit: 1,
-				},
-			}
-		)
-			.then(data => {
-				return data.data.data.results[0];
-			})
-			.catch(err => console.error(err.message));
-	}
+		try {
+			const fetch = await axios(
+				`https://gateway.marvel.com/v1/public/characters?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`,
+				{
+					params: {
+						offset: randomNum,
+						limit: 1,
+					},
+				}
+			);
+			const character = await fetch.data.data.results[0];
+			const IMG_URL = `${character.thumbnail.path}.${character.thumbnail.extension}`;
+			return IMG_URL;
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!randomImg) {
+			handleFetchRandomCharacter().then(img => setRandomImg(img));
+		}
+		console.log(randomImg);
+	}, [randomImg, handleFetchRandomCharacter]);
 
 	function handleFilterCharacters(value) {
 		if (value) {
@@ -100,7 +107,6 @@ const CharactersProvider = ({ children }) => {
 		userSearch,
 		isModalOpen,
 		selected,
-		handleFetchRandomCharacter,
 		handleToggleFavorite,
 		handleFilterCharacters,
 		handleSetUserSearch,
