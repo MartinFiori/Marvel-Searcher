@@ -16,7 +16,6 @@ export const StyledCard = styled.div`
 		width: clamp(300px, 50vw, 500px);
 	}
 	@media only screen and (max-width: 768px) {
-		/* For everything bigger than 768px */
 		flex-direction: column;
 	}
 `;

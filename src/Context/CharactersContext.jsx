@@ -10,10 +10,14 @@ https://gateway.marvel.com/v1/public/characters?apikey=ed5aa221d74a4d0812e9637da
 // 	localStorage.getItem("randomImg")
 // );
 
+const FAVORITES_FROM_LOCALSTORAGE = JSON.parse(
+	localStorage.getItem("favorites") || "[]"
+);
+
 const CharactersProvider = ({ children }) => {
 	const [characters, setCharacters] = useState({});
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [favorites, setFavorites] = useState([]);
+	const [favorites, setFavorites] = useState(FAVORITES_FROM_LOCALSTORAGE);
 	const [userSearch, setUserSearch] = useState("");
 	const [selected, setSelected] = useState({});
 
@@ -105,6 +109,7 @@ const CharactersProvider = ({ children }) => {
 		handleSearchSeries,
 		setIsModalOpen,
 		setSelected,
+		setUserSearch,
 	};
 
 	return (

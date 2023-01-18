@@ -10,16 +10,16 @@ import Layout from "../../Layout";
 export default function AppRouter() {
 	return (
 		<CharactersProvider>
-			<Layout>
-				<BrowserRouter>
+			<BrowserRouter>
+				<Layout>
 					<Routes>
 						<Route path="/details/:id" element={<DetailView />} />
 						<Route path="/favorites" element={<FavoritesView />} />
 						<Route path="/" element={<HomeView />} />
 						<Route path="/*" element={<NotFoundView />} />
 					</Routes>
-				</BrowserRouter>
-			</Layout>
+				</Layout>
+			</BrowserRouter>
 		</CharactersProvider>
 	);
 }

@@ -8,19 +8,24 @@ import {
 	StyledResponsiveContainer,
 } from "./NavBar.styles";
 import { CharactersContext } from "../../Context/CharactersContext";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
 	const { handleSetUserSearch, userSearch } = useContext(CharactersContext);
 	return (
 		<StyledNavbarContainer>
-			<StyledLogo />
+			<Link to="/" style={{ height: "100%", width: "auto" }}>
+				<StyledLogo />
+			</Link>
 			<StyledResponsiveContainer>
 				<SearchSVG />
 				<StyledInput
 					value={userSearch}
 					onChange={e => handleSetUserSearch(e.target.value)}
 				/>
-				<StarSVG />
+				<Link to="/favorites">
+					<StarSVG />
+				</Link>
 			</StyledResponsiveContainer>
 		</StyledNavbarContainer>
 	);
