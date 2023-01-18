@@ -107,6 +107,7 @@ const CharactersProvider = ({ children }) => {
 		userSearch,
 		isModalOpen,
 		selected,
+		randomImg,
 		handleToggleFavorite,
 		handleFilterCharacters,
 		handleSetUserSearch,
