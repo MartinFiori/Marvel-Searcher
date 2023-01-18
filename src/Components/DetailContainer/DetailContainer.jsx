@@ -21,7 +21,6 @@ const DetailContainer = ({
 		items.find(el => el.role === "penciler")?.name || "Not found";
 	const pencilerCover =
 		items.find(el => el.role === "penciler (cover)")?.name || "Not found";
-	console.log();
 	return (
 		<StyledDetailContainer>
 			<StyledCard>

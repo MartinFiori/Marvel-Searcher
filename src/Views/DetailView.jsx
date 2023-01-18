@@ -18,7 +18,6 @@ export default function DetailView() {
 			.then(res => {
 				setUserSearch("");
 				setComic(res.data.data.results[0]);
-				console.log(res.data.data.results[0]);
 			})
 			.finally(() => setIsLoading(false));
 	}, [id, setUserSearch]);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { CharactersContext } from "../../Context/CharactersContext";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
@@ -13,7 +13,7 @@ import {
 } from "./PopUp.styles";
 
 const PopUp = ({ setIsModalOpen }) => {
-	const { selected, setSelected, favorites, handleToggleFavorite } =
+	const { selected, favorites, handleToggleFavorite } =
 		useContext(CharactersContext);
 	const isFavorite = serie => {
 		return favorites.find(el => el.id === serie.id);
@@ -22,12 +22,6 @@ const PopUp = ({ setIsModalOpen }) => {
 		e.stopPropagation();
 		handleToggleFavorite(value);
 	};
-	// useEffect(() => {
-	// 	return () => {
-	// 		setSelected([]);
-	// 		console.log("se reinicio");
-	// 	};
-	// }, [setSelected]);
 	return (
 		<div>
 			<StyledOverlay />

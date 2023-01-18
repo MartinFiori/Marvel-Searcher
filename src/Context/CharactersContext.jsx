@@ -67,7 +67,6 @@ const CharactersProvider = ({ children }) => {
 	}
 
 	function handleToggleFavorite(character) {
-		console.log(character);
 		setFavorites(favs =>
 			favs.some(el => el.id === character.id)
 				? favs.filter(el => el.id !== character.id)
@@ -88,7 +87,6 @@ const CharactersProvider = ({ children }) => {
 				const req = await axios(
 					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/comics?&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77&limit=100`
 				);
-				console.log(req.data.data);
 				setSelected(req.data.data);
 			} catch (err) {
 				console.log(err);
