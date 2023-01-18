@@ -47,7 +47,7 @@ export const StyledItem = styled.div`
 `;
 
 export const StyledName = styled.h3`
-	color: #fff;
+	color: ${({ theme }) => theme.color.primary};
 	font-weight: 700;
 	font-size: 24px;
 	text-transform: capitalize;

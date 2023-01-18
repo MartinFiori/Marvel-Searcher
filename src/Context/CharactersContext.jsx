@@ -63,7 +63,7 @@ const CharactersProvider = ({ children }) => {
 	function handleFilterCharacters(value) {
 		if (value) {
 			axios(
-				`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${value}&limit=100&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
+				`https://gateway.marvel.com/v1/public/characters?name=${value}&limit=100&apikey=ed5aa221d74a4d0812e9637da4fd9ff2&hash=3cdcd0023e2fbb15efaad3438a70be77`
 			)
 				.then(data => {
 					setCharacters(data.data.data);

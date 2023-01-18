@@ -16,7 +16,7 @@ export const StyledNavbarContainer = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: row;
-	background: #fff;
+	background: ${props => props.theme.color.primary};
 	padding: 10px;
 	gap: 15px;
 `;
@@ -43,6 +43,6 @@ export const StyledResponsiveContainer = styled.div`
 	flex-direction: row;
 	width: 100%;
 	align-items: center;
-	border-right: 1px solid var(--light-grey);
-	border-left: 1px solid var(--light-grey);
+	border-right: 1px solid ${({ theme }) => theme.color.grey};
+	border-left: 1px solid ${({ theme }) => theme.color.grey};
 `;

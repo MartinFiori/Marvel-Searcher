@@ -9,13 +9,10 @@ import { CharactersProvider } from "../../Context/CharactersContext";
 import Layout from "../../Layout";
 
 const theme = {
-	dark: {
-		primary: "#000",
-		text: "#fff",
-	},
-	light: {
+	color: {
 		primary: "#fff",
-		text: "#000",
+		grey: "#d3d3d3",
+		black: "#000",
 	},
 };
 

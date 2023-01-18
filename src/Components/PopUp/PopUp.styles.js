@@ -26,7 +26,7 @@ export const StyledContent = styled.section`
 	transform: translate(-50%, -50%);
 	width: clamp(400px, 600px, 90vw);
 	height: 500px;
-	background: #fff;
+	background: ${({ theme }) => theme.color.primary};
 	animation: ${appear} 350ms linear;
 	z-index: 200;
 	display: flex;
@@ -46,7 +46,7 @@ export const StyledBtn = styled.div`
 	font-weight: 700;
 	border-radius: 50%;
 	font-size: 48px;
-	color: #d3d3d3;
+	color: ${({ theme }) => theme.color.grey};
 `;
 
 export const StyledImg = styled.img`
@@ -69,7 +69,7 @@ export const StyledSeriesContainer = styled.div`
 	&::-webkit-scrollbar-thumb {
 		background-color: #ff0000;
 		border-radius: 10px;
-		border: 3px solid #ffffff;
+		border: 3px solid ${({ theme }) => theme.color.primary};
 	}
 	&::-webkit-scrollbar-track {
 		background: #f0f0f0;
@@ -78,7 +78,7 @@ export const StyledSeriesContainer = styled.div`
 		width: 16px;
 	}
 	a {
-		color: #000;
+		color: ${({ theme }) => theme.color.black};
 		display: flex;
 		width: 100%;
 		height: 100px;
