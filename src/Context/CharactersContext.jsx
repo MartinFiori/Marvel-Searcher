@@ -27,7 +27,7 @@ const CharactersProvider = ({ children }) => {
 	async function handleRandomNumber() {
 		try {
 			const req = await axios(
-				`https://gateway.marvel.com/v1/public/characters?apikey=${API_KEY}&hash=${HASH}`
+				`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=${API_KEY}&hash=${HASH}`
 			);
 			const totalCharacters = req.data.data.total;
 			return Math.floor(Math.random() * (totalCharacters - 0 + 1)) + 0;
@@ -40,7 +40,7 @@ const CharactersProvider = ({ children }) => {
 		const randomNum = await handleRandomNumber();
 		try {
 			const fetch = await axios(
-				`https://gateway.marvel.com/v1/public/characters?&apikey=${API_KEY}&hash=${HASH}`,
+				`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=${API_KEY}&hash=${HASH}`,
 				{
 					params: {
 						offset: randomNum,
@@ -65,7 +65,7 @@ const CharactersProvider = ({ children }) => {
 	function handleFilterCharacters(value) {
 		if (value) {
 			axios(
-				`https://gateway.marvel.com/v1/public/characters?name=${value}&limit=100&apikey=${API_KEY}&hash=${HASH}`
+				`https://gateway.marvel.com/v1/public/characters?name=${value}&limit=100&ts=1&apikey=${API_KEY}&hash=${HASH}`
 			)
 				.then(data => {
 					setCharacters(data.data.data);
@@ -93,7 +93,7 @@ const CharactersProvider = ({ children }) => {
 		if (character) {
 			try {
 				const req = await axios(
-					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/comics?&apikey=${API_KEY}&hash=${HASH}&limit=100&orderBy=issueNumber`
+					`https://gateway.marvel.com:443/v1/public/characters/${character.id}/comics?ts=1&apikey=${API_KEY}&hash=${HASH}&limit=100&orderBy=issueNumber`
 				);
 				setSelected(req.data.data);
 			} catch (err) {
